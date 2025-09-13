@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyTracker</string>
+
+    <string-array name="project_status_array">
+        <item>draft</item>
+        <item>in_progress</item>
+        <item>done</item>
+    </string-array>
+
+</resources>
