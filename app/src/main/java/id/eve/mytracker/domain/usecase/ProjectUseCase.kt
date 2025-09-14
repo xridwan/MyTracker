@@ -17,6 +17,13 @@ class GetAllProjectsWithTasksFlow(
     operator fun invoke(): Flow<List<ProjectWithTasks>> = repo.getAllProjectsWithTasksFlow()
 }
 
+class GetProjectWithTasksFlow(
+    private val repo: ProjectRepository
+) {
+    operator fun invoke(projectId: Long): Flow<ProjectWithTasks> =
+        repo.getProjectWithTasks(projectId)
+}
+
 class GetAllProjectsUseCase(
     private val repo: ProjectRepository
 ) {

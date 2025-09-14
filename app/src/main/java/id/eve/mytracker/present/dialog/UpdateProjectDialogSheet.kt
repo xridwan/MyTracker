@@ -51,15 +51,15 @@ class UpdateProjectDialogSheet(
     }
 
     private fun getProjectById() {
-        viewModel.getProjectById(project.id)
+        viewModel.getProjectWithTasks(project.id)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     binding.apply {
-                        etName.setText(state.project?.name)
-                        etStatus.setText(state.project?.status)
-                        etProgress.setText(state.project?.completionProgress.toString())
+                        etName.setText(state.projectsWithTask?.project?.name)
+                        etStatus.setText(state.projectsWithTask?.project?.status)
+                        etProgress.setText(state.projectsWithTask?.project?.completionProgress.toString())
                     }
                 }
             }

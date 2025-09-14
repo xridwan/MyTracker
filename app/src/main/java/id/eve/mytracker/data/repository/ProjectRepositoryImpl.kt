@@ -34,6 +34,11 @@ class ProjectRepositoryImpl(
         }
     }
 
+    override fun getProjectWithTasks(projectId: Long): Flow<ProjectWithTasks> {
+        return  projectDao.getProjectWithTasksFlow(projectId)
+            .map { it?.updateProjectStatus()!! }
+    }
+
     override suspend fun getProjectById(projectId: Long): Project? {
         return projectDao.getProjectById(projectId)
     }

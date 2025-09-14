@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import id.eve.mytracker.data.entity.Project
 import id.eve.mytracker.data.entity.ProjectWithTasks
 import id.eve.mytracker.domain.usecase.DeleteProjectUseCase
-import id.eve.mytracker.domain.usecase.GetAllProjectsUseCase
 import id.eve.mytracker.domain.usecase.GetAllProjectsWithTasksFlow
 import id.eve.mytracker.domain.usecase.GetProjectByIdUseCase
+import id.eve.mytracker.domain.usecase.GetProjectWithTasksFlow
 import id.eve.mytracker.domain.usecase.InsertProjectUseCase
 import id.eve.mytracker.domain.usecase.UpdateProjectUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,12 +22,13 @@ data class ProjectUiState(
     val isLoading: Boolean = false,
     val project: Project? = null,
     val projects: List<Project> = emptyList(),
+    val projectsWithTask: ProjectWithTasks? = null,
     val projectsWithTasks: List<ProjectWithTasks> = emptyList(),
     val error: String? = null
 )
 
 class ProjectViewModel(
-    private val getAllProjectsUseCase: GetAllProjectsUseCase,
+    private val getProjectWithTasksFlow: GetProjectWithTasksFlow,
     private val insertProjectUseCase: InsertProjectUseCase,
     private val updateProjectUseCase: UpdateProjectUseCase,
     private val deleteProjectUseCase: DeleteProjectUseCase,
@@ -52,6 +53,24 @@ class ProjectViewModel(
                         )
                     }
                     println("ProjectViewModel: $projectsWithTasks")
+                }
+        }
+    }
+
+    fun getProjectWithTasks(projectId: Long) {
+        viewModelScope.launch {
+            getProjectWithTasksFlow(projectId)
+                .onStart { _uiState.update { it.copy(isLoading = true) } }
+                .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
+                .collect { projectWithTasks ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            projectsWithTask = projectWithTasks,
+                            error = null
+                        )
+                    }
+                    println("ProjectViewModel: $projectWithTasks")
                 }
         }
     }

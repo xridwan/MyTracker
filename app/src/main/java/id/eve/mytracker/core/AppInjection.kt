@@ -12,6 +12,7 @@ import id.eve.mytracker.domain.usecase.GetAllProjectsUseCase
 import id.eve.mytracker.domain.usecase.GetAllProjectsWithTasksFlow
 import id.eve.mytracker.domain.usecase.GetAllTasksByProjectFlow
 import id.eve.mytracker.domain.usecase.GetProjectByIdUseCase
+import id.eve.mytracker.domain.usecase.GetProjectWithTasksFlow
 import id.eve.mytracker.domain.usecase.GetTaskByIdUseCase
 import id.eve.mytracker.domain.usecase.InsertProjectUseCase
 import id.eve.mytracker.domain.usecase.InsertTaskUseCase
@@ -56,6 +57,7 @@ val taskUseCaseModule = module {
     single { UpdateTaskUseCase(get()) }
     single { DeleteTaskUseCase(get()) }
     single { GetTaskByIdUseCase(get()) }
+    single { GetProjectWithTasksFlow(get()) }
 }
 val viewModelModule = module {
     viewModel {
