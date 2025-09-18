@@ -10,8 +10,7 @@ import id.eve.mytracker.databinding.ViewItemTaskBinding
 
 class TaskAdapter(
     private val onItemClickListener: OnItemClickListener
-) :
-    ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
+) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     inner class TaskViewHolder(private val binding: ViewItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {

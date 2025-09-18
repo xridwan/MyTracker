@@ -23,3 +23,12 @@ fun ProjectWithTasks.updateProjectStatus(): ProjectWithTasks {
         )
     )
 }
+
+fun String.status(): String {
+    return when (this) {
+        "draft" -> "Draft"
+        "in_progress" -> "In Progress"
+        "done" -> "Done"
+        else -> ""
+    }
+}

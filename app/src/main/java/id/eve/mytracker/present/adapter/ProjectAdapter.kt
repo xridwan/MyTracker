@@ -1,12 +1,12 @@
 package id.eve.mytracker.present.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import id.eve.mytracker.core.helper.status
 import id.eve.mytracker.data.entity.Project
 import id.eve.mytracker.data.entity.ProjectWithTasks
 import id.eve.mytracker.data.entity.Task
@@ -14,8 +14,7 @@ import id.eve.mytracker.databinding.ViewItemProjectBinding
 
 class ProjectAdapter(
     private val onAddTaskClickListener: OnAddTaskClickListener
-) :
-    ListAdapter<ProjectWithTasks, ProjectAdapter.ProjectViewHolder>(ProjectDiffCallback()) {
+) : ListAdapter<ProjectWithTasks, ProjectAdapter.ProjectViewHolder>(ProjectDiffCallback()) {
 
     inner class ProjectViewHolder(private val binding: ViewItemProjectBinding) :
         RecyclerView.ViewHolder(binding.root), TaskAdapter.OnItemClickListener {
@@ -33,7 +32,7 @@ class ProjectAdapter(
             val project = projectWithTasks.project
 
             binding.tvName.text = project.name
-            binding.tvStatus.text = project.status
+            binding.tvStatus.text = project.status.status()
 
             taskAdapter.submitList(projectWithTasks.tasks)
 
